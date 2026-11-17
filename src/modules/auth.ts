@@ -70,7 +70,7 @@ router.post('/login', loginLimiter, async (req: Request, res: Response) => {
         const [rows] = await db.execute(
             `SELECT u.user_kode, u.user_nama, u.user_hrd, u.user_password, k.kar_bagian
              FROM rekruitmen2.tuser u
-             LEFT JOIN tkaryawan k ON u.user_kode = k.kar_nik
+             LEFT JOIN hrd2.tkaryawan k ON u.user_kode = k.kar_nik
              WHERE u.user_kode = ?`,
             [username]
         );
@@ -254,7 +254,7 @@ router.get('/me', authenticate, async (req: Request, res: Response) => {
         const [rows] = await db.execute(
             `SELECT u.user_kode, u.user_nama, u.user_hrd, k.kar_bagian
              FROM rekruitmen2.tuser u
-             LEFT JOIN tkaryawan k ON u.user_kode = k.kar_nik
+             LEFT JOIN hrd2.tkaryawan k ON u.user_kode = k.kar_nik
              WHERE u.user_kode = ?`,
             [(req.user as any).user_kode]
         );
